@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTA Case Study: Tirzepatide (TA1026) | Health Economics Showcase</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter & Playfair Display for premium editorial feel) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800&family=Playfair+Display:ital,wght=0,600;0,700;1,500&display=swap" rel="stylesheet">
+    <!-- Font Awesome for clean, functional icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+        .slide-transition {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-page { page-break-after: always; display: block !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen transition-all duration-300 font-sans custom-scrollbar overflow-x-hidden">
+
+    <!-- NAVIGATION BAR -->
+    <header class="no-print border-b border-slate-800/80 bg-slate-950/80 backdrop-blur sticky top-0 z-50 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-0 sm:h-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-start gap-3">
+                <div class="h-10 w-10 shrink-0 rounded-lg bg-purple-500 flex items-center justify-center text-slate-950 font-bold shadow-lg shadow-purple-500/20" id="header-logo-container">
+                    <i class="fa-solid fa-chart-line text-sm"></i>
+                </div>
+                <div class="space-y-0.5">
+                    <h1 class="text-sm font-bold tracking-tight text-white flex flex-wrap items-center gap-1.5 leading-tight">
+                        HEALTH TECHNOLOGY ASSESSMENT 
+                        <span class="text-[10px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20 font-mono inline-block mt-0.5 sm:mt-0" id="header-tag">
+                            CASE STUDY by Dr. Ratnapriya Thakur (BDS, FAGE)
+                        </span>
+                    </h1>
+                    <p class="text-xs text-slate-400"> Clinical Efficacy vs. Macroeconomic System Access </p>
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-between w-full sm:w-auto gap-4 pt-2 sm:pt-0 border-t border-slate-800/60 sm:border-t-0">
+                <!-- Theme Selectors -->
+                <div class="flex bg-slate-900 border border-slate-800 rounded-lg p-1 text-[11px] items-center">
+                    <button onclick="setTheme('purple')" class="theme-btn px-2 py-1 rounded bg-purple-500 text-slate-950 font-semibold transition-all" id="btn-theme-purple">Amethyst</button>
+                    <button onclick="setTheme('indigo')" class="theme-btn px-2 py-1 rounded text-slate-400 hover:text-white transition-all" id="btn-theme-indigo">Indigo</button>
+                    <button onclick="setTheme('emerald')" class="theme-btn px-2 py-1 rounded text-slate-400 hover:text-white transition-all" id="btn-theme-emerald">Emerald</button>
+                </div>
+
+                <!-- Light/Dark Toggle -->
+                <button onclick="toggleLightMode()" class="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition-all text-slate-400 hover:text-white shrink-0" title="Toggle Clinical Light Mode">
+                    <i id="theme-toggle-icon" class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN INTERACTIVE CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 flex flex-col gap-6 sm:gap-10">
+        
+        <!-- Two Column Interactive Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start w-full">
+            
+            <!-- LEFT: SLIDE PRESENTATION (7 cols) -->
+            <section class="lg:col-span-7 flex flex-col gap-4 w-full">
+                
+                <!-- Slide Deck Frame -->
+                <div class="relative w-full min-h-[420px] sm:min-h-[460px] md:aspect-[4/3] rounded-2xl overflow-hidden bg-slate-900 border border-slate-800/80 shadow-2xl flex flex-col justify-between p-5 sm:p-10 select-none group" id="slide-container">
+                    
+                    <!-- Background decorative elements based on active theme -->
+                    <div class="absolute inset-0 pointer-events-none opacity-20 transition-all duration-500" id="slide-bg">
+                        <div class="absolute top-0 right-0 w-80 h-80 rounded-full bg-purple-500 blur-3xl filter -translate-y-12 translate-x-12"></div>
+                        <div class="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-slate-800 blur-3xl filter translate-y-12 -translate-x-12"></div>
+                    </div>
+
+                    <!-- TOP DECK HUD -->
+                    <div class="relative z-10 flex items-center justify-between border-b border-slate-800/50 pb-3 text-[10px] sm:text-xs font-semibold tracking-widest text-slate-400 uppercase">
+                        <span class="flex items-center gap-2">
+                            <span class="h-2 w-2 rounded-full bg-purple-400 animate-pulse" id="hud-dot"></span>
+                            NICE Technology Appraisal: TA1026
+                        </span>
+                        <span id="slide-index-indicator">01 / 05</span>
+                    </div>
+
+                    <!-- SLIDE MAIN CONTENT (Dynamically populated) -->
+                    <div class="relative z-10 my-auto flex flex-col justify-center py-4 sm:py-6 overflow-y-auto max-h-[80%] custom-scrollbar" id="slide-content">
+                        <!-- Loaded dynamically via JavaScript -->
+                    </div>
+
+                    <!-- BOTTOM DECK HUD & CONTROLS -->
+                    <div class="relative z-10 flex items-center justify-end border-t border-slate-800/50 pt-3 text-xs">
+                        <!-- Slide Navigation Controls -->
+                        <div class="flex items-center gap-3 no-print">
+                            <button onclick="prevSlide()" class="h-10 w-10 rounded-full border border-slate-800 bg-slate-900 hover:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-all active:scale-95" title="Previous Slide">
+                                <i class="fa-solid fa-chevron-left text-sm"></i>
+                            </button>
+                            <button onclick="nextSlide()" class="h-10 w-10 rounded-full border border-slate-800 bg-purple-500 hover:bg-purple-400 flex items-center justify-center text-slate-950 font-bold transition-all active:scale-95" title="Next Slide" id="next-btn-main">
+                                <i class="fa-solid fa-chevron-right text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Slide Selection Progress Line -->
+                <div class="no-print flex flex-col sm:flex-row items-center justify-between gap-3 px-2 text-xs text-slate-500">
+                    <span class="font-medium flex items-center gap-2">
+                        <i class="fa-solid fa-keyboard text-[10px] hidden sm:inline"></i> 
+                        Use keyboard arrows to navigate or swipe left/right
+                    </span>
+                    <div class="flex flex-wrap gap-1.5 justify-center" id="slide-dots">
+                        <!-- Generated via JS -->
+                    </div>
+                </div>
+
+                <!-- EXPANDABLE LITERATURE REFERENCES DRAWER -->
+                <div class="no-print rounded-2xl border border-slate-800/80 bg-slate-900/20 p-4 sm:p-5 backdrop-blur">
+                    <button onclick="toggleReferences()" class="w-full flex items-center justify-between text-xs font-bold tracking-wider text-slate-400 uppercase">
+                        <span class="flex items-center gap-2">
+                            <i class="fa-solid fa-book-bookmark text-purple-400" id="references-icon"></i> Scientific Literature & Evidence Base
+                        </span>
+                        <i class="fa-solid fa-chevron-down transition-transform duration-300" id="references-arrow"></i>
+                    </button>
+                    <div class="hidden mt-4 space-y-3 transition-all duration-300" id="references-content">
+                        <div class="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-2">
+                            <div class="flex justify-between items-start gap-2">
+                                <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 font-mono">SURMOUNT-1 (Pivotal Trial)</span>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PMID: 35658024</span>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed font-serif">
+                                Jastreboff AM, Aronne LJ, Ahmad NN, et al. <strong>Tirzepatide Once Weekly for the Treatment of Obesity</strong>. <em>N Engl J Med</em>. 2022;387(3):205-217. doi:10.1056/NEJMoa2206038
+                            </p>
+                        </div>
+
+                        <div class="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-2">
+                            <div class="flex justify-between items-start gap-2">
+                                <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 font-mono">NICE GUIDANCE (TA1026)</span>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">TA1026</span>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed font-serif">
+                                National Institute for Health and Care Excellence (NICE). <strong>Tirzepatide for managing overweight and obesity</strong>. Technology Appraisal Guidance [TA1026]. Published June 2024. 
+                            </p>
+                        </div>
+
+                        <div class="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-2">
+                            <div class="flex justify-between items-start gap-2">
+                                <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 font-mono">SURMOUNT-2 (Co-morbid T2D)</span>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PMID: 37385275</span>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed font-serif">
+                                Garvey WT, Frias JP, Jastreboff AM, et al. <strong>Tirzepatide once weekly for obesity in people with type 2 diabetes (SURMOUNT-2)</strong>. <em>The Lancet</em>. 2023;402(10402):613-626.
+                            </p>
+                        </div>
+
+                        <div class="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-2">
+                            <div class="flex justify-between items-start gap-2">
+                                <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 font-mono">HTA Economics & Burden</span>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">NHS Digital 2023</span>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed font-serif">
+                                UK Department of Health and Social Care. <strong>Tackling Obesity: Government Strategy & Resource Economics</strong>. Public Health England (PHE) cost data on diabetes & cardiovascular comorbidities.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- RIGHT: INTERACTIVE HTA BUDGET SANDBOX & PDF EMBED (5 cols) -->
+            <section class="lg:col-span-5 flex flex-col gap-6 no-print w-full">
+                
+                <!-- HTA Sandbox Card -->
+                <div class="rounded-2xl border border-purple-500/20 bg-purple-950/5 p-4 sm:p-6 backdrop-blur shadow-xl relative overflow-hidden" id="sandbox-card">
+                    
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-2xl pointer-events-none rounded-full"></div>
+                    
+                    <div class="flex items-center gap-3 mb-4 border-b border-slate-800/80 pb-4">
+                        <div class="h-10 w-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 shrink-0" id="sandbox-logo">
+                            <i class="fa-solid fa-calculator text-base"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xs sm:text-sm font-bold tracking-tight text-white uppercase">HTA Budget Impact Simulator</h2>
+                            <p class="text-[10px] sm:text-xs text-slate-400 font-medium">Model macroeconomic access scenarios</p>
+                        </div>
+                    </div>
+
+                    <!-- Simulation Interactive Fields -->
+                    <div class="flex flex-col gap-5 text-sm">
+                        
+                        <!-- Cohort Selection Preset -->
+                        <div>
+                            <label class="block text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Select Eligibility Criteria Preset</label>
+                            <select id="sandbox-cohort" onchange="runSimulation()" class="w-full bg-slate-900 border border-slate-800 text-slate-200 rounded-lg px-3 py-2.5 text-xs focus:ring-1 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all">
+                                <option value="broad" selected>Standard Marketing Authorisation (BMI ≥30 + 1 comorbidity)</option>
+                                <option value="nice">NICE Restricted Guidance (BMI ≥35 + 1 comorbidity)</option>
+                                <option value="nhse_y1">NHS England Year 1 Phase (BMI ≥40 + 4 comorbidities)</option>
+                            </select>
+                        </div>
+
+                        <!-- Variable sliders -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-4">
+                            <div class="space-y-1">
+                                <label class="flex justify-between text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                                    Annual Drug Cost 
+                                    <span class="text-purple-400 font-mono font-bold" id="cost-val">£1,200</span>
+                                </label>
+                                <input type="range" id="sandbox-cost" min="500" max="2500" step="50" value="1200" oninput="updateCostVal()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500 py-1">
+                                <div class="flex justify-between text-[9px] text-slate-600 font-mono">
+                                    <span>£500</span>
+                                    <span>£2,500</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1">
+                                <label class="flex justify-between text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                                    Target Pop. Base
+                                    <span class="text-purple-400 font-mono font-bold" id="pop-val">3.4M</span>
+                                </label>
+                                <input type="range" id="sandbox-pop" min="1.0" max="5.0" step="0.1" value="3.4" oninput="updatePopVal()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500 py-1">
+                                <div class="flex justify-between text-[9px] text-slate-600 font-mono">
+                                    <span>1.0M</span>
+                                    <span>5.0M</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Metrics Output Display -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-1">
+                            <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/80" id="cohort-box">
+                                <p class="text-[9px] font-semibold text-slate-500 uppercase tracking-wider">Prescriber Cohort Size</p>
+                                <p class="text-sm sm:text-base font-bold text-white mt-1" id="out-cohort-size">--</p>
+                                <p class="text-[10px] text-slate-400 mt-0.5 leading-snug" id="out-cohort-pct">--</p>
+                            </div>
+                            <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/80" id="impact-box">
+                                <p class="text-[9px] font-semibold text-slate-500 uppercase tracking-wider">Gross Annual Impact</p>
+                                <p class="text-sm sm:text-base font-bold text-purple-400 mt-1" id="out-gross-cost">--</p>
+                                <p class="text-[10px] text-slate-400 mt-0.5 leading-snug">Annual drug spend</p>
+                            </div>
+                        </div>
+
+                        <!-- HTA Visual Graph Representation -->
+                        <div class="bg-slate-900 border border-slate-800/50 p-4 rounded-xl" id="graph-panel">
+                            <div class="flex justify-between items-center text-xs text-slate-400 mb-3 gap-2">
+                                <span class="font-medium text-[11px] sm:text-xs">System Impact (Gross vs. Post-Savings Net)</span>
+                                <span class="text-purple-400 font-mono font-bold shrink-0 text-[11px] sm:text-xs" id="out-reduction-pct">-0%</span>
+                            </div>
+                            
+                            <!-- Mini dynamic bar comparison representation -->
+                            <div class="flex flex-col gap-3 pt-1">
+                                <div>
+                                    <div class="flex justify-between text-[9px] sm:text-[10px] text-slate-500 mb-1">
+                                        <span>Unrestricted Pathway Impact</span>
+                                        <span id="graph-broad-val">£4.08 Bn</span>
+                                    </div>
+                                    <div class="w-full bg-slate-800 h-2 sm:h-2.5 rounded-full overflow-hidden">
+                                        <div class="bg-slate-600 h-full transition-all duration-300" id="graph-broad-bar" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-[9px] sm:text-[10px] text-slate-400 mb-1 gap-2">
+                                        <span class="font-semibold text-purple-400 truncate" id="graph-restricted-label">Selected Path Impact</span>
+                                        <span class="font-bold text-purple-400 shrink-0" id="graph-restricted-val">£1.44 Bn</span>
+                                    </div>
+                                    <div class="w-full bg-slate-800 h-2 sm:h-2.5 rounded-full overflow-hidden">
+                                        <div class="bg-purple-500 h-full transition-all duration-300" id="graph-restricted-bar" style="width: 35%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- HTA Analytical Insight Box -->
+                        <div class="text-[11px] sm:text-xs border-l-2 border-purple-500 pl-3 py-1 text-slate-400 italic leading-relaxed" id="sandbox-insight">
+                            <!-- Loaded dynamically based on preset choice -->
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Embedded PDF Frame Card -->
+                <div class="rounded-2xl border border-slate-800 bg-slate-900/20 p-4 sm:p-5 shadow-xl relative overflow-hidden transition-all duration-300" id="pdf-viewer-card">
+                    <div class="flex items-center justify-between mb-3.5 gap-4">
+                        <button onclick="toggleMethodology()" class="flex items-center gap-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-300 hover:opacity-80 transition-all focus:outline-none text-left">
+                            <i class="fa-solid fa-file-pdf text-purple-400 text-sm" id="pdf-icon"></i>
+                            <span>Methodology Framework Document</span>
+                            <i class="fa-solid fa-chevron-down transition-transform duration-300 text-slate-500 text-[10px] ml-1 shrink-0" id="pdf-methodology-arrow"></i>
+                        </button>
+                        <a href="hta_case_study_methodology.pdf" target="_blank" class="text-[9px] sm:text-[10px] text-purple-400 hover:opacity-80 transition-all flex items-center gap-1 font-semibold uppercase tracking-wider shrink-0">
+                            Fullscreen <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Clean Iframe Container (Initialized as hidden by default) -->
+                    <div class="hidden w-full h-[380px] sm:h-[450px] rounded-xl overflow-hidden border border-slate-800 bg-slate-950 transition-colors duration-300" id="pdf-frame-container">
+                        <iframe 
+                            src="hta_case_study_methodology.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0" 
+                            class="w-full h-full border-0"
+                            title="HTA Methodology Framework Details">
+                        </iframe>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+        <!-- BOTTOM: FULL-WIDTH ULTIMATE PORTFOLIO REFLECTION NOTE -->
+        <section id="portfolio-note-card" class="no-print border border-purple-500/10 bg-purple-950/5 rounded-2xl p-5 sm:p-8 backdrop-blur relative overflow-hidden w-full transition-all duration-300">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-purple-500/5 blur-3xl pointer-events-none rounded-full"></div>
+            <div class="flex flex-col gap-5">
+                <div class="space-y-3 max-w-full">
+                    <h3 id="portfolio-note-header" class="text-[10px] sm:text-xs font-bold tracking-widest text-purple-400 uppercase flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap"></i> Why did I create this interactive HTA case study?
+                    </h3>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-serif">
+                        By combining this interactive case study with my ongoing preparation for advanced credentials in Health Economics, I wanted to explore macro-level health system value beyond individual clinical outcomes. This project served as a playground for me to practice translating complex medical evidence into structured, population-level resource optimization models while experimenting with how Generative AI can accelerate visual tool creation. This is very much an evolving learning journey for me, and I warmly welcome any feedback, insights, or advice from experienced professionals in the field!
+                    </p>
+                    <div class="pt-4 border-t border-purple-500/10 flex flex-col sm:flex-row justify-end items-end gap-3 w-full">
+                        <span id="portfolio-note-signature" class="text-[10px] sm:text-xs font-mono tracking-wider text-purple-400 bg-purple-500/5 border border-purple-500/10 px-3 py-1.5 rounded-lg text-right max-w-full truncate transition-all duration-300">
+                            — Dr. Ratnapriya Thakur, a dentist exploring healthcare beyond clinics.
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PRINT VIEW FOR SLIDES -->
+    <div class="hidden print:block max-w-4xl mx-auto p-8" id="print-slides-container">
+        <!-- Rendered purely via javascript when window.print() is executed -->
+    </div>
+
+    <!-- SLIDES DATA AND PRESENTATION CORE LOGIC -->
+    <script>
+        // Theme config dictionary
+        const themes = {
+            purple: {
+                primary: 'text-purple-400',
+                bgAccent: 'bg-purple-500',
+                border: 'border-purple-500/20',
+                hudDot: 'bg-purple-400',
+                brandText: 'text-purple-400',
+                activeBtn: 'bg-purple-500 text-slate-950 font-semibold'
+            },
+            indigo: {
+                primary: 'text-indigo-400',
+                bgAccent: 'bg-indigo-500',
+                border: 'border-indigo-500/20',
+                hudDot: 'bg-indigo-400',
+                brandText: 'text-indigo-400',
+                activeBtn: 'bg-indigo-500 text-white font-semibold'
+            },
+            emerald: {
+                primary: 'text-emerald-400',
+                bgAccent: 'bg-emerald-500',
+                border: 'border-emerald-500/20',
+                hudDot: 'bg-emerald-400',
+                brandText: 'text-emerald-400',
+                activeBtn: 'bg-emerald-500 text-slate-950 font-semibold'
+            }
+        };
+
+        let activeTheme = 'purple';
+        let lightMode = false;
+        let currentSlide = 0;
+
+        // Custom slide database mapping user content to highly premium layouts with verified academic references
+        const slides = [
+            {
+                type: 'title',
+                title: 'Efficacy vs. Affordability',
+                subtitle: 'A Mini HTA Case Study on Tirzepatide (TA1026)',
+                desc: 'How health economics decides who actually gets access to breakthrough clinical assets within modern public healthcare networks.',
+                script: 'Welcome to this HTA case study. Today, we are exploring one of the most significant healthcare strategy topics of our decade: the balance between historic clinical breakthrough and system-level affordability. We are focusing on NICE Technology Appraisal 1026—the milestone appraisal for Tirzepatide in overweight and obesity management.'
+            },
+            {
+                type: 'clinical',
+                title: 'The Clinical Triumph & The Population Wave',
+                sections: [
+                    {
+                        label: 'THE ASSET & DATA',
+                        text: 'Tirzepatide, a first-in-class dual GIP/GLP-1 receptor agonist. Clinical data from the pivotal SURMOUNT-1 trial demonstrated historic efficacy—a mean body weight reduction of up to <strong class="text-theme-clr">22.5%</strong> at week 72. <em>(Jastreboff et al., N Engl J Med 2022) [1]</em>'
+                    },
+                    {
+                        label: "THE CLINICIAN'S VIEW",
+                        text: 'From a pure efficacy standpoint, this is a massive breakthrough for managing chronic, complex metabolic disease and preventing downstream macrovascular/microvascular complications. <em>(Garvey et al., Lancet 2023) [3]</em>'
+                    },
+                    {
+                        label: 'THE MACRO SHOCKWAVE',
+                        text: 'Obesity affects roughly 1 in 4 adults in the UK. If reimbursed broadly under standard clinical parameters (BMI &ge; 30), the immediate eligible cohort scales to an estimated <strong class="text-theme-clr">3.4 million people</strong>. <em>(NHS Digital Health Survey Data) [4]</em>'
+                    }
+                ],
+                script: 'First, let\'s look at Slide 1. The clinical success of Tirzepatide is undeniable. SURMOUNT-1 demonstrated a historic 22.5% weight loss. From a clinician\'s view, this is a game-changer for reducing stroke, diabetes, and cardiovascular complications. However, the macro reality is a massive shockwave: obesity affects 1 in 4 adults in the UK. Opening access to everyone with a BMI of 30 or more immediately scales the eligible population to 3.4 million people.'
+            },
+            {
+                type: 'dilemma',
+                title: 'The Health Economic Dilemma',
+                sections: [
+                    {
+                        label: 'THE BOTTLENECK',
+                        text: 'Even if an asset is proven to be cost-effective relative to traditional lifestyle modifications at standard willingness-to-pay thresholds (<strong class="text-theme-clr">&pound;20,000 to &pound;30,000 per QALY</strong>), the sheer budget impact volume can paralyze a public health system. <em>(NICE Cost-Effectiveness Standards) [2]</em>'
+                    },
+                    {
+                        label: 'THE SYSTEM RISK',
+                        text: 'Reimbursing millions of patients simultaneously creates an unsustainable up-front financial strain on primary care and specialist weight management infrastructure.'
+                    },
+                    {
+                        label: 'THE HTA REALITY',
+                        text: 'HTA bodies cannot look at clinical data in a vacuum; they must match therapeutic value with macroeconomic system capacity.'
+                    }
+                ],
+                script: 'On Slide 2, we confront the core health economics bottleneck. In HTA, a drug might theoretically be highly cost-effective under traditional cost-utility ratios—meaning it costs less than thirty-thousand pounds per Quality-Adjusted Life Year gained. But cost-effective does not mean affordable. The massive, immediate budget impact of treating millions of patients simultaneously risks overwhelming system capacity and local health boards.'
+            },
+            {
+                type: 'resolution',
+                title: 'How NICE Balanced the Scales',
+                sections: [
+                    {
+                        label: 'COHORT RESTRICTION',
+                        text: 'Reimbursed access was strictly narrowed down to a subset of the approved population: adults with a <strong class="text-theme-clr">BMI of at least 35 kg/m²</strong> and at least one weight-related comorbidity (with adjusted thresholds for ethnic minorities). <em>(NICE TA1026 Guidance) [2]</em>'
+                    },
+                    {
+                        label: 'COMMERCIAL ACCESS AGREEMENT',
+                        text: 'A confidential discount and pricing structure was mandated to improve the baseline cost-effectiveness ratio and manage systemic expenditures. <em>(Commercial Access Liaison) [2]</em>'
+                    },
+                    {
+                        label: 'PHASED IMPLEMENTATION',
+                        text: 'A structured, phased funding variation framework was negotiated to roll out the asset sequentially over several years based on clinical need, preventing immediate budget collapse. <em>(NHSE Strategic Policy) [4]</em>'
+                    }
+                ],
+                script: 'Slide 3 illustrates the resolution of this dilemma. To safeguard the healthcare network while providing access, NICE introduced three critical guardrails in TA1026. First, a strict cohort restriction to BMIs of 35 or above with comorbidities. Second, a confidential commercial discount. And third, a historic phased implementation framework, distributing access across managed clinical tiers over several years based on disease severity.'
+            },
+            {
+                type: 'takeaway',
+                title: 'The Medical Affairs Strategic Takeaway',
+                sections: [
+                    {
+                        label: 'SCIENTIFIC COMMUNICATION',
+                        text: 'Medical Science Liaisons (MSLs) must shift from discussing pure trial data (e.g., "22.5% weight loss") to educating Key Opinion Leaders (KOLs) and Integrated Care Boards (ICBs) on complex local formulary criteria, eligibility alignment, and ethical rationing.'
+                    },
+                    {
+                        label: 'REAL-WORLD EVIDENCE (RWE)',
+                        text: 'Medical teams must lead the generation of post-marketing data to prove that patients in the restricted cohort achieve the long-term cost-utility milestones modeled in health economics simulations.'
+                    },
+                    {
+                        label: 'THE BOTTOM LINE',
+                        text: 'Success in the modern pharmaceutical pipeline requires cross-functional fluency. We must speak the language of the clinic and the language of the payer.'
+                    }
+                ],
+                script: 'Finally, Slide 4 delivers the major takeaway for Medical Affairs. This appraisal shows that medical teams can no longer exist in a clinical silo. Our field teams must transition from presenting pure efficacy data to partnering with payers on regional access, safety coordination, and eligibility. Furthermore, we must lead real-world evidence generation to validate the cost-utility models that earned the appraisal. True medical affairs leaders speak both the clinical language and the economic language of the healthcare system.'
+            }
+        ];
+
+        // Initialize deck visual controls
+        function setTheme(themeName) {
+            activeTheme = themeName;
+            
+            // Reset buttons classes
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.className = "theme-btn px-2 py-1 rounded text-slate-400 hover:text-white transition-all";
+            });
+            
+            const btn = document.getElementById(`btn-theme-${themeName}`);
+            if (btn) {
+                btn.className = `theme-btn px-2 py-1 rounded transition-all ${themes[themeName].activeBtn}`;
+            }
+
+            // Apply theme changes to slide frame UI
+            const colorClass = themes[themeName].primary;
+            const bgClass = themes[themeName].bgAccent;
+            const borderClass = themes[themeName].border;
+
+            const hudDot = document.getElementById('hud-dot');
+            if (hudDot) hudDot.className = `h-2 w-2 rounded-full animate-pulse ${themes[themeName].hudDot}`;
+            
+            const nextBtnMain = document.getElementById('next-btn-main');
+            if (nextBtnMain) nextBtnMain.className = `h-10 w-10 rounded-full border border-slate-800 flex items-center justify-center font-bold transition-all active:scale-95 ${bgClass} text-slate-950 hover:opacity-90`;
+
+            // Update interactive graph values
+            const rBar = document.getElementById('graph-restricted-bar');
+            if (rBar) {
+                rBar.className = `h-full transition-all duration-300 ${bgClass}`;
+            }
+
+            const rValText = document.getElementById('graph-restricted-val');
+            if (rValText) {
+                rValText.className = `font-bold ${colorClass}`;
+            }
+
+            const rLabelText = document.getElementById('graph-restricted-label');
+            if (rLabelText) {
+                rLabelText.className = `font-semibold ${colorClass}`;
+            }
+
+            const refIcon = document.getElementById('references-icon');
+            if (refIcon) {
+                refIcon.className = `fa-solid fa-book-bookmark ${colorClass}`;
+            }
+
+            // Update header elements to track default selection
+            const logo = document.getElementById('header-logo-container');
+            const hTag = document.getElementById('header-tag');
+            if (logo && hTag) {
+                logo.className = `h-10 w-10 rounded-lg ${bgClass} flex items-center justify-center text-slate-950 font-bold shadow-lg`;
+                hTag.className = `text-[10px] ${bgClass}/10 ${colorClass} px-2 py-0.5 rounded border ${themes[themeName].border} font-mono`;
+            }
+
+            // Update bottom portfolio reflection note block colors dynamically
+            const noteCardHeader = document.getElementById('portfolio-note-header');
+            if (noteCardHeader) {
+                noteCardHeader.className = `text-[10px] sm:text-xs font-bold tracking-widest ${colorClass} uppercase flex items-center gap-2`;
+            }
+
+            const noteCard = document.getElementById('portfolio-note-card');
+            if (noteCard) {
+                if (lightMode) {
+                    noteCard.className = `no-print border border-${themeName}-500/20 bg-${themeName}-50/50 rounded-2xl p-5 sm:p-8 backdrop-blur relative overflow-hidden w-full transition-all duration-300`;
+                } else {
+                    noteCard.className = `no-print border border-${themeName}-500/10 bg-${themeName}-950/5 rounded-2xl p-5 sm:p-8 backdrop-blur relative overflow-hidden w-full transition-all duration-300`;
+                }
+            }
+
+            const noteSignature = document.getElementById('portfolio-note-signature');
+            if (noteSignature) {
+                if (lightMode) {
+                    noteSignature.className = `text-[10px] sm:text-xs font-mono tracking-wider text-${themeName}-700 bg-${themeName}-500/10 border border-${themeName}-500/20 px-3 py-1.5 rounded-lg text-right max-w-full truncate transition-all duration-300`;
+                } else {
+                    noteSignature.className = `text-[10px] sm:text-xs font-mono tracking-wider text-${themeName}-400 bg-${themeName}-500/5 border border-${themeName}-500/10 px-3 py-1.5 rounded-lg text-right max-w-full truncate transition-all duration-300`;
+                }
+            }
+
+            // Update interactive sandbox container colors dynamically
+            const sandboxCard = document.getElementById('sandbox-card');
+            if (sandboxCard) {
+                if (lightMode) {
+                    sandboxCard.className = `rounded-2xl border border-${themeName}-500/30 bg-${themeName}-50/50 p-4 sm:p-6 backdrop-blur shadow-xl relative overflow-hidden`;
+                } else {
+                    sandboxCard.className = `rounded-2xl border border-${themeName}-500/20 bg-${themeName}-950/5 p-4 sm:p-6 backdrop-blur shadow-xl relative overflow-hidden`;
+                }
+            }
+
+            renderCurrentSlide();
+            updateBudgetGraphics();
+        }
+
+        // Handle light mode logic for high-end clinical aesthetic
+        function toggleLightMode() {
+            lightMode = !lightMode;
+            const html = document.documentElement;
+            const toggleIcon = document.getElementById('theme-toggle-icon');
+            const sandboxCard = document.getElementById('sandbox-card');
+            const noteCard = document.getElementById('portfolio-note-card');
+            const cohortBox = document.getElementById('cohort-box');
+            const impactBox = document.getElementById('impact-box');
+            const graphPanel = document.getElementById('graph-panel');
+            const pdfViewerCard = document.getElementById('pdf-viewer-card');
+            const pdfFrameContainer = document.getElementById('pdf-frame-container');
+
+            if (lightMode) {
+                html.classList.add('light');
+                document.body.className = "bg-slate-50 text-slate-900 min-h-screen transition-all duration-300 font-sans custom-scrollbar overflow-x-hidden";
+                toggleIcon.className = "fa-solid fa-sun";
+                
+                // Header style update
+                document.querySelector('header').className = "no-print border-b border-slate-200 bg-white/80 backdrop-blur sticky top-0 z-50 transition-colors duration-300";
+                
+                // Adjust slide deck frame background
+                document.getElementById('slide-container').className = "relative w-full min-h-[420px] sm:min-h-[460px] md:aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-2xl flex flex-col justify-between p-5 sm:p-10 select-none group";
+                
+                // Update Sandbox card and panel styles for light mode
+                if (cohortBox) cohortBox.className = "bg-slate-100 p-3.5 rounded-xl border border-slate-200";
+                if (impactBox) impactBox.className = "bg-slate-100 p-3.5 rounded-xl border border-slate-200";
+                if (graphPanel) graphPanel.className = "bg-slate-100 border border-slate-200 p-4 rounded-xl";
+                
+                // Update PDF Embed block styles for light mode
+                if (pdfViewerCard) pdfViewerCard.className = "rounded-2xl border border-slate-200 bg-slate-100/50 p-4 sm:p-5 shadow-xl relative overflow-hidden transition-all duration-300";
+                if (pdfFrameContainer) pdfFrameContainer.className = "w-full h-[380px] sm:h-[450px] rounded-xl overflow-hidden border border-slate-200 bg-white transition-colors duration-300";
+            } else {
+                html.classList.remove('light');
+                document.body.className = "bg-slate-950 text-slate-100 min-h-screen transition-all duration-300 font-sans custom-scrollbar overflow-x-hidden";
+                toggleIcon.className = "fa-solid fa-moon";
+                
+                document.querySelector('header').className = "no-print border-b border-slate-800/80 bg-slate-950/80 backdrop-blur sticky top-0 z-50 transition-colors duration-300";
+                
+                document.getElementById('slide-container').className = "relative w-full min-h-[420px] sm:min-h-[460px] md:aspect-[4/3] rounded-2xl overflow-hidden bg-slate-900 border border-slate-800/80 shadow-2xl flex flex-col justify-between p-5 sm:p-10 select-none group";
+                
+                if (cohortBox) cohortBox.className = "bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/80";
+                if (impactBox) impactBox.className = "bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/80";
+                if (graphPanel) graphPanel.className = "bg-slate-900 border border-slate-800/50 p-4 rounded-xl";
+                
+                // Update PDF Embed block styles for dark mode
+                if (pdfViewerCard) pdfViewerCard.className = "rounded-2xl border border-slate-800 bg-slate-900/20 p-4 sm:p-5 backdrop-blur shadow-xl relative overflow-hidden transition-all duration-300";
+                if (pdfFrameContainer) pdfFrameContainer.className = "w-full h-[380px] sm:h-[450px] rounded-xl overflow-hidden border border-slate-800 bg-slate-950 transition-colors duration-300";
+            }
+            setTheme(activeTheme);
+        }
+
+        // Render slide based on current slide state
+        function renderCurrentSlide() {
+            const container = document.getElementById('slide-content');
+            if (!container) return;
+            const slide = slides[currentSlide];
+            const colorClass = themes[activeTheme].primary;
+            const fontHeadline = lightMode ? 'text-slate-900' : 'text-white';
+            const fontSub = lightMode ? 'text-slate-600' : 'text-slate-300';
+            const fontBorder = lightMode ? 'border-slate-200' : 'border-slate-800/80';
+
+            const indicator = document.getElementById('slide-index-indicator');
+            if (indicator) {
+                indicator.innerText = `0${currentSlide + 1} / 0${slides.length}`;
+            }
+
+            // Generate dot indicators
+            const dotsContainer = document.getElementById('slide-dots');
+            if (dotsContainer) {
+                dotsContainer.innerHTML = '';
+                slides.forEach((_, idx) => {
+                    const activeDotClass = idx === currentSlide 
+                        ? themes[activeTheme].bgAccent 
+                        : (lightMode ? 'bg-slate-300 hover:bg-slate-400' : 'bg-slate-800 hover:bg-slate-700');
+                    
+                    dotsContainer.innerHTML += `
+                        <button onclick="goToSlide(${idx})" class="h-2 w-5 sm:w-6 rounded-full transition-all duration-300 ${activeDotClass}" title="Go to slide ${idx + 1}"></button>
+                    `;
+                });
+            }
+
+            if (slide.type === 'title') {
+                container.innerHTML = `
+                    <div class="flex flex-col gap-3.5 slide-transition translate-y-0 opacity-100 py-2">
+                        <span class="text-[10px] font-bold font-mono tracking-widest text-slate-500 uppercase">HEALTH ECONOMICS SHIFT</span>
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight ${fontHeadline} font-serif leading-tight">
+                            ${slide.title}
+                        </h2>
+                        <h3 class="text-base sm:text-lg md:text-xl font-medium ${colorClass} italic font-serif">
+                            ${slide.subtitle}
+                        </h3>
+                        <p class="text-xs sm:text-sm ${fontSub} max-w-xl leading-relaxed mt-1">
+                            ${slide.desc}
+                        </p>
+                    </div>
+                `;
+            } else {
+                let sectionsHtml = '';
+                slide.sections.forEach(sec => {
+                    const parsedText = sec.text.replace('<strong class="text-theme-clr">', `<strong class="font-bold ${colorClass}">`);
+                    sectionsHtml += `
+                        <div class="flex flex-col gap-1">
+                            <span class="text-[9px] sm:text-[10px] font-bold font-mono tracking-wider ${colorClass} uppercase">${sec.label}</span>
+                            <p class="text-[11px] sm:text-xs md:text-sm ${fontSub} leading-relaxed">
+                                ${parsedText}
+                            </p>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = `
+                    <div class="flex flex-col gap-4 slide-transition translate-y-0 opacity-100">
+                        <h2 class="text-lg sm:text-xl md:text-2xl font-extrabold tracking-tight ${fontHeadline} border-b ${fontBorder} pb-2.5 font-serif">
+                            ${slide.title}
+                        </h2>
+                        <div class="grid grid-cols-1 gap-4">
+                            ${sectionsHtml}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Navigate slide deck
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+            } else {
+                currentSlide = 0; // wrap around
+            }
+            renderCurrentSlide();
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+            } else {
+                currentSlide = slides.length - 1;
+            }
+            renderCurrentSlide();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            renderCurrentSlide();
+        }
+
+        // Expandable references drawer toggle logic
+        function toggleReferences() {
+            const content = document.getElementById('references-content');
+            const arrow = document.getElementById('references-arrow');
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                arrow.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                arrow.classList.remove('rotate-180');
+            }
+        }
+
+        function toggleMethodology() {
+            const content = document.getElementById('pdf-frame-container');
+            const arrow = document.getElementById('pdf-methodology-arrow');
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                arrow.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                arrow.classList.remove('rotate-180');
+            }
+        }
+
+        // Support swipe gestures on slide deck card for tablet/mobile viewports
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const slideContainer = document.getElementById('slide-container');
+        slideContainer.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        slideContainer.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipeGesture();
+        }, { passive: true });
+
+        function handleSwipeGesture() {
+            if (touchStartX - touchEndX > 55) {
+                nextSlide(); // Swiped left
+            }
+            if (touchEndX - touchStartX > 55) {
+                prevSlide(); // Swiped right
+            }
+        }
+
+        // Allow keyboard navigation using Arrow keys
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Interactive HTA Budget Sandbox core logic
+        function updateCostVal() {
+            const cost = document.getElementById('sandbox-cost').value;
+            document.getElementById('cost-val').innerText = `£${Number(cost).toLocaleString()}`;
+            runSimulation();
+        }
+
+        // Update target population metric
+        function updatePopVal() {
+            const pop = document.getElementById('sandbox-pop').value;
+            document.getElementById('pop-val').innerText = `${pop}M`;
+            runSimulation();
+        }
+
+        // Execute budget impact models
+        function runSimulation() {
+            const cohortType = document.getElementById('sandbox-cohort').value;
+            const annualCost = parseFloat(document.getElementById('sandbox-cost').value);
+            const rawPopBase = parseFloat(document.getElementById('sandbox-pop').value) * 1000000;
+
+            let cohortSize = 0;
+            let cohortPct = "";
+            let insightText = "";
+            let savingsPercentage = 0;
+
+            // Health Economics parameters derived from standard guidelines
+            if (cohortType === 'broad') {
+                cohortSize = rawPopBase; 
+                cohortPct = "100% of target obesity cohort";
+                insightText = "<strong>HTA Challenge:</strong> Granting unrestricted access to the entire licensed population requires overwhelming upfront funding, causing immediate budget strain on regional health boards.";
+                savingsPercentage = 0;
+            } else if (cohortType === 'nice') {
+                cohortSize = rawPopBase * 0.35; 
+                cohortPct = "35% of target population (severe)";
+                insightText = "<strong>HTA Strategy:</strong> Restricting funding to severe cohorts (BMI ≥ 35) optimizes the ICER to within acceptable willingness-to-pay ranges (£20k-£30k/QALY). <em>(NICE TA1026 Guidance)</em>";
+                savingsPercentage = 65;
+            } else if (cohortType === 'nhse_y1') {
+                cohortSize = rawPopBase * 0.05; 
+                cohortPct = "~5% of target population (Priority Year 1)";
+                insightText = "<strong>NHS Priority Rollout:</strong> NHS England's phased framework guarantees immediate access to highest-risk individuals while spreading the budget over several fiscal cycles.";
+                savingsPercentage = 95;
+            }
+
+            // Calculations
+            const grossAnnualCost = cohortSize * annualCost;
+            const savingsValue = (rawPopBase * annualCost) - grossAnnualCost;
+
+            // Render Output values
+            const outCohortSize = document.getElementById('out-cohort-size');
+            if (outCohortSize) outCohortSize.innerText = `${Math.round(cohortSize).toLocaleString()} patients`;
+            
+            const outCohortPct = document.getElementById('out-cohort-pct');
+            if (outCohortPct) outCohortPct.innerText = cohortPct;
+            
+            const outGrossCost = document.getElementById('out-gross-cost');
+            if (outGrossCost) outGrossCost.innerText = `£${(grossAnnualCost / 1000000000).toFixed(2)} Bn`;
+            
+            const outReductionPct = document.getElementById('out-reduction-pct');
+            if (outReductionPct) outReductionPct.innerText = `-${savingsPercentage}%`;
+            
+            const sandboxInsight = document.getElementById('sandbox-insight');
+            if (sandboxInsight) sandboxInsight.innerHTML = insightText;
+
+            // Update budget impact chart representation
+            updateBudgetGraphics(rawPopBase, annualCost, grossAnnualCost);
+        }
+
+        // Handle interactive graphic visual rendering
+        function updateBudgetGraphics(rawPopBase, annualCost, grossAnnualCost) {
+            // Retrieve values safely
+            const popInput = rawPopBase || (parseFloat(document.getElementById('sandbox-pop').value) * 1000000);
+            const costInput = annualCost || parseFloat(document.getElementById('sandbox-cost').value);
+            const currentGross = grossAnnualCost || (popInput * costInput);
+
+            const maximumGross = popInput * costInput;
+            const ratio = (currentGross / maximumGross) * 100;
+
+            const broadValText = document.getElementById('graph-broad-val');
+            const textClass = themes[activeTheme].primary;
+            const restrictedValText = document.getElementById('graph-restricted-val');
+
+            if (broadValText && restrictedValText) {
+                broadValText.innerText = `£${(maximumGross / 1000000000).toFixed(2)} Bn`;
+                restrictedValText.innerText = `£${(currentGross / 1000000000).toFixed(2)} Bn`;
+            }
+
+            const restrictedBar = document.getElementById('graph-restricted-bar');
+            if (restrictedBar) {
+                restrictedBar.style.width = `${ratio}%`;
+            }
+        }
+
+        // Generate high-resolution print layouts when requested for exports
+        function preparePrintSlides() {
+            const printContainer = document.getElementById('print-slides-container');
+            if (!printContainer) return;
+            printContainer.innerHTML = '';
+
+            slides.forEach((slide, idx) => {
+                let sectionsHtml = '';
+                if (slide.type === 'title') {
+                    sectionsHtml = `
+                        <div class="h-full flex flex-col justify-center gap-6 py-20">
+                            <span class="text-xs font-bold tracking-widest text-slate-400 uppercase">HEALTH ECONOMICS SHIFT</span>
+                            <h2 class="text-4xl font-extrabold tracking-tight text-slate-900 font-serif leading-tight">
+                                ${slide.title}
+                            </h2>
+                            <h3 class="text-2xl font-medium text-purple-600 italic font-serif">
+                                ${slide.subtitle}
+                            </h3>
+                            <p class="text-base text-slate-600 max-w-xl leading-relaxed">
+                                ${slide.desc}
+                            </p>
+                        </div>
+                    `;
+                } else {
+                    slide.sections.forEach(sec => {
+                        sectionsHtml += `
+                            <div class="flex flex-col gap-2">
+                                <span class="text-xs font-bold font-mono tracking-wider text-purple-600 uppercase">${sec.label}</span>
+                                <p class="text-sm text-slate-700 leading-relaxed">
+                                    ${sec.text.replace('<strong class="text-theme-clr">', '<strong>')}
+                                </p>
+                            </div>
+                        `;
+                    });
+                    sectionsHtml = `
+                        <div class="flex flex-col gap-6">
+                            <h2 class="text-3xl font-extrabold tracking-tight text-slate-900 border-b border-slate-200 pb-4 font-serif">
+                                ${slide.title}
+                            </h2>
+                            <div class="grid grid-cols-1 gap-6">
+                                ${sectionsHtml}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                printContainer.innerHTML += `
+                    <div class="print-page bg-white p-12 border border-slate-200 shadow mb-8 min-h-[600px] flex flex-col justify-between">
+                        <div class="text-xs uppercase tracking-widest text-slate-400 border-b border-slate-100 pb-3 flex justify-between">
+                            <span>NICE Technology Appraisal: TA1026</span>
+                            <span>Slide 0${idx + 1} / 05</span>
+                        </div>
+                        <div class="my-auto">
+                            ${sectionsHtml}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            setTheme('purple');
+            runSimulation();
+            preparePrintSlides();
+        }
+    </script>
+
+</body>
+</html>
