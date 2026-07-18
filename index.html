@@ -63,7 +63,7 @@
                 <div class="space-y-0.5 min-w-0">
                     <h1 class="text-sm font-bold tracking-tight text-slate-900 dark:text-white flex flex-wrap items-center gap-1.5 leading-tight">
                         HEALTH TECHNOLOGY ASSESSMENT 
-                        <span class="text-[10px] theme-header-tag-bg theme-txt-dynamic px-2 py-0.5 rounded border theme-header-tag-border font-mono inline-block mt-0.5 sm:mt-0 whitespace-normal text-left break-words" id="header-tag">
+                        <span class="text-[12px] theme-header-tag-bg theme-txt-dynamic px-2 py-0.5 rounded border theme-header-tag-border font-mono inline-block mt-0.5 sm:mt-0 whitespace-normal text-left break-words" id="header-tag">
                             CASE STUDY by Dr. Ratnapriya Thakur (BDS, FAGE)
                         </span>
                     </h1>
@@ -97,8 +97,8 @@
             <section class="lg:col-span-7 flex flex-col justify-start gap-5 lg:h-full w-full overflow-hidden" id="left-column-container">
                 
                 <div class="flex flex-col gap-5">
-                    <!-- Slide Deck Frame -->
-                    <div class="relative w-full min-h-[420px] sm:min-h-[460px] md:aspect-[4/3] rounded-2xl overflow-hidden bg-[#F3EFE7] dark:bg-slate-900 border border-[#E5DFD5] dark:border-slate-800/80 shadow-2xl flex flex-col justify-between p-5 sm:p-10 select-none group" id="slide-container">
+                    <!-- Slide Deck Frame (Normalized height limits for perfect UI symmetry) -->
+                    <div class="relative w-full h-[460px] sm:h-[420px] md:h-[450px] rounded-2xl overflow-hidden bg-[#F3EFE7] dark:bg-slate-900 border border-[#E5DFD5] dark:border-slate-800/80 shadow-2xl flex flex-col justify-between p-5 sm:p-10 select-none group" id="slide-container">
                         
                         <!-- Background decorative elements based on active theme -->
                         <div class="absolute inset-0 pointer-events-none opacity-10 dark:opacity-20 transition-all duration-500" id="slide-bg">
@@ -116,7 +116,7 @@
                         </div>
 
                         <!-- SLIDE MAIN CONTENT -->
-                        <div class="relative z-10 my-auto flex flex-col justify-start md:justify-center py-2 sm:py-6 overflow-y-auto max-h-[70%] md:max-h-[80%] custom-scrollbar slide-transition opacity-100 transform translate-x-0 text-left" id="slide-content">
+                        <div class="relative z-10 my-auto flex flex-col justify-start md:justify-center py-2 sm:py-6 overflow-y-auto max-h-[72%] md:max-h-[82%] custom-scrollbar slide-transition opacity-100 transform translate-x-0 text-left" id="slide-content">
                             <!-- Loaded dynamically via JavaScript -->
                         </div>
 
@@ -135,12 +135,8 @@
 
                     </div>
 
-                    <!-- Slide Selection Progress Line -->
-                    <div class="no-print flex flex-col sm:flex-row items-center justify-between gap-3 px-2 text-xs text-slate-500">
-                        <span class="font-medium flex items-center gap-2">
-                            <i class="fa-solid fa-keyboard text-[10px] hidden sm:inline"></i> 
-                            Use keyboard arrows to navigate or swipe left/right
-                        </span>
+                    <!-- Slide Selection Progress Line (Centered layout without instructions) -->
+                    <div class="no-print flex items-center justify-center gap-3 px-2 text-xs text-slate-500">
                         <div class="flex flex-wrap gap-1.5 justify-center" id="slide-dots">
                             <!-- Generated via JS -->
                         </div>
@@ -244,7 +240,7 @@
                                 </select>
                             </div>
 
-                            <!-- Variable sliders -->
+                            <!-- Variable sliders (Rebuilt track contrast properties for light mode mobile readability) -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-4">
                                 <div class="space-y-1">
                                     <label class="flex justify-between text-[10px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
@@ -252,7 +248,7 @@
                                         <span class="theme-txt-dynamic font-mono font-bold" id="cost-val">£1,200</span>
                                     </label>
                                     <input type="range" id="sandbox-cost" min="500" max="2500" step="50" value="1200" oninput="updateCostVal()" class="theme-accent-dynamic w-full h-1.5 bg-[#DCD5C9] dark:bg-slate-800 rounded-lg cursor-pointer my-2">
-                                    <div class="flex justify-between text-[9px] text-slate-400 dark:text-slate-600 font-mono">
+                                    <div class="flex justify-between text-[9px] text-slate-500 dark:text-slate-500 font-mono">
                                         <span>£500</span>
                                         <span>£2,500</span>
                                     </div>
@@ -264,7 +260,7 @@
                                         <span class="theme-txt-dynamic font-mono font-bold" id="pop-val">3.4M</span>
                                     </label>
                                     <input type="range" id="sandbox-pop" min="1.0" max="5.0" step="0.1" value="3.4" oninput="updatePopVal()" class="theme-accent-dynamic w-full h-1.5 bg-[#DCD5C9] dark:bg-slate-800 rounded-lg cursor-pointer my-2">
-                                    <div class="flex justify-between text-[9px] text-slate-400 dark:text-slate-600 font-mono">
+                                    <div class="flex justify-between text-[9px] text-slate-500 dark:text-slate-500 font-mono">
                                         <span>1.0M</span>
                                         <span>5.0M</span>
                                     </div>
@@ -325,7 +321,7 @@
                     </div>
                 </div>
 
-                <!-- Embedded PDF Frame Card (Collapsible) -->
+                <!-- Embedded PDF Frame Card (Adaptive UI with Native Document Fallback for Mobile Viewports) -->
                 <div class="rounded-2xl border border-[#E5DFD5] dark:border-slate-800 bg-[#EFEAE0]/40 dark:bg-slate-900/20 p-4 sm:p-5 shadow-xl relative overflow-hidden transition-all duration-300 mt-5 lg:mt-0" id="pdf-viewer-card">
                     <div class="flex items-center justify-between mb-0 gap-4">
                         <button onclick="toggleMethodology()" class="w-full flex items-center justify-between text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-300 hover:opacity-80 transition-all focus:outline-none text-left">
@@ -333,15 +329,36 @@
                                 <i class="fa-solid fa-file-pdf theme-txt-dynamic text-sm" id="pdf-icon"></i>
                                 <span>Methodology Framework Document</span>
                             </span>
-                            <i class="fa-solid fa-chevron-down transition-transform duration-300 text-slate-400 dark:text-slate-500 text-[10px] ml-1 shrink-0" id="pdf-methodology-arrow"></i>
+                            <div class="flex items-center gap-2" onclick="event.stopPropagation();">
+                                <a href="hta_case_study_methodology.pdf" target="_blank" rel="noopener noreferrer" class="p-1 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all text-xs flex items-center gap-1 shrink-0 font-sans font-bold" title="Open PDF document in a new tab">
+                                    <span class="hidden sm:inline text-[9px] uppercase tracking-wider">Open Natively</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                                </a>
+                                <div onclick="toggleMethodology()" class="cursor-pointer p-1">
+                                    <i class="fa-solid fa-chevron-down transition-transform duration-300 text-slate-400 dark:text-slate-500 text-[10px] shrink-0" id="pdf-methodology-arrow"></i>
+                                </div>
+                            </div>
                         </button>
                     </div>
                     
-                    <!-- Clean Iframe Container (Initially Collapsed) -->
-                    <div class="hidden mt-4 w-full h-[380px] sm:h-[450px] rounded-xl overflow-hidden border border-[#E5DFD5] dark:border-slate-800 bg-[#FAF7F2] dark:bg-slate-950 transition-colors duration-300" id="pdf-frame-container">
+                    <!-- Expanded Iframe Workspace (Includes responsive touch guides) -->
+                    <div class="hidden mt-4 w-full h-[380px] sm:h-[450px] rounded-xl overflow-hidden border border-[#E5DFD5] dark:border-slate-800 bg-[#FAF7F2] dark:bg-slate-950 transition-colors duration-300 flex flex-col justify-start" id="pdf-frame-container">
+                        <!-- Mobile Rendering Helper (Ensures pages 2-4 can be viewed natively on mobile screens) -->
+                        <div class="block md:hidden p-4 bg-[#EFEAE0] dark:bg-slate-900/80 border-b border-[#E5DFD5] dark:border-slate-800/50 text-slate-700 dark:text-slate-300 text-xs shrink-0">
+                            <div class="flex gap-2.5 items-start">
+                                <i class="fa-solid fa-circle-info theme-txt-dynamic text-sm mt-0.5 shrink-0"></i>
+                                <div>
+                                    <p class="font-bold text-slate-900 dark:text-white">Mobile View Guidance</p>
+                                    <p class="mt-0.5 leading-relaxed text-slate-600 dark:text-slate-400">Mobile operating systems (iOS & Android) restrict scrolling inside nested PDF frames, displaying only Page 1. Tap below to read pages 2–4 with native pinch-and-zoom controls.</p>
+                                    <a href="hta_case_study_methodology.pdf" target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex items-center gap-1.5 px-3 py-2 rounded-lg theme-bg-dynamic text-white dark:text-slate-950 font-bold text-[10px] tracking-wide uppercase transition-all shadow-md active:scale-95">
+                                        View Full 4-Page PDF Natively <i class="fa-solid fa-file-pdf"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         <iframe 
                             src="hta_case_study_methodology.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0" 
-                            class="w-full h-full border-0"
+                            class="w-full h-full border-0 flex-grow"
                             title="HTA Methodology Framework Details">
                         </iframe>
                     </div>
@@ -350,25 +367,66 @@
             </section>
         </div>
 
-        <!-- BOTTOM: FULL-WIDTH PORTFOLIO REFLECTION NOTE -->
-        <section id="portfolio-note-card" class="no-print border theme-card-border-dynamic theme-card-bg-dynamic rounded-2xl p-5 sm:p-8 backdrop-blur relative overflow-hidden w-full transition-all duration-300">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-purple-500/5 blur-3xl pointer-events-none rounded-full"></div>
-            <div class="flex flex-col gap-5">
-                <div class="space-y-3 max-w-full">
-                    <h3 id="portfolio-note-header" class="text-[10px] sm:text-xs font-bold tracking-widest theme-txt-dynamic uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-graduation-cap"></i> Why did I create this interactive HTA case study?
-                    </h3>
-                    <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-serif">
-                        By combining this interactive case study with my ongoing preparation for advanced credentials in Health Economics, I wanted to explore macro-level health system value beyond individual clinical outcomes. This project served as a playground for me to practice translating complex medical evidence into structured, population-level resource optimization models while experimenting with how Generative AI can accelerate visual tool creation. This is very much an evolving learning journey for me, and I warmly welcome any feedback, insights, or advice from experienced professionals in the field!
-                    </p>
+        <!-- BOTTOM: FULL-WIDTH PORTFOLIO REFLECTION & DYNAMIC CONTACT ME GRID -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch w-full">
+            
+            <!-- Reflection Note Card (Col Span 8) -->
+            <section id="portfolio-note-card" class="no-print border theme-card-border-dynamic theme-card-bg-dynamic rounded-2xl p-5 sm:p-8 backdrop-blur relative overflow-hidden lg:col-span-8 flex flex-col justify-between w-full transition-all duration-300">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-purple-500/5 blur-3xl pointer-events-none rounded-full"></div>
+                <div class="flex flex-col gap-5 h-full justify-between">
+                    <div class="space-y-3 max-w-full">
+                        <h3 id="portfolio-note-header" class="text-[10px] sm:text-xs font-bold tracking-widest theme-txt-dynamic uppercase flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap"></i> Why did I create this interactive HTA case study?
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-serif">
+                            By combining this interactive case study with my ongoing preparation for advanced credentials in Health Economics, I wanted to explore macro-level health system value beyond individual clinical outcomes. This project served as a playground for me to practice translating complex medical evidence into structured, population-level resource optimization models while experimenting with how Generative AI can accelerate visual tool creation. This is very much an evolving learning journey for me, and I warmly welcome any feedback, insights, or advice from experienced professionals in the field!
+                        </p>
+                    </div>
                     <div class="pt-4 border-t border-[#E5DFD5] dark:border-purple-500/10 flex flex-col sm:flex-row justify-end items-end gap-3 w-full">
-                        <span id="portfolio-note-signature" class="text-[10px] sm:text-xs font-mono font-bold tracking-wider theme-signature-text-dynamic theme-signature-bg-dynamic border theme-signature-border-dynamic px-3.5 py-2.5 rounded-lg text-center sm:text-right w-full sm:w-auto whitespace-normal break-words leading-relaxed transition-all duration-300">
+                        <span id="portfolio-note-signature" class="text-[10px] sm:text-xs font-mono font-bold tracking-wider theme-signature-text-dynamic theme-signature-bg-dynamic border theme-signature-border-dynamic px-3.5 py-2.5 rounded-lg text-center sm:text-right w-full sm:w-auto whitespace-normal break-words leading-relaxed transition-all duration-300 font-bold">
                             — Dr. Ratnapriya Thakur, a dentist exploring healthcare beyond clinics.
                         </span>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <!-- Dynamic Contact Me Card (Col Span 4) -->
+            <section id="contact-card" class="no-print border theme-card-border-dynamic theme-card-bg-dynamic rounded-2xl p-5 sm:p-8 backdrop-blur relative overflow-hidden lg:col-span-4 flex flex-col justify-between w-full transition-all duration-300">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-2xl pointer-events-none rounded-full"></div>
+                <div class="flex flex-col h-full justify-between gap-5">
+                    <div class="space-y-3">
+                        <h3 class="text-[10px] sm:text-xs font-bold tracking-widest theme-txt-dynamic uppercase flex items-center gap-2">
+                            <i class="fa-solid fa-envelope"></i> Let's Connect!
+                        </h3>
+                    </div>
+                    
+                    <div class="flex flex-col gap-3">
+                        <!-- Email Link -->
+                        <a href="mailto:rpt.dental@gmail.com" class="flex items-center gap-3 p-3 rounded-xl bg-[#FAF7F2]/60 dark:bg-slate-900 border border-[#E5DFD5] dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 transition-all group">
+                            <div class="h-8 w-8 rounded-lg theme-bg-dynamic flex items-center justify-center text-white dark:text-slate-950 shrink-0">
+                                <i class="fa-solid fa-paper-plane text-xs"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-[8px] font-mono uppercase tracking-wider text-slate-400 font-bold leading-none mb-1">Email</p>
+                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 theme-txt-dynamic break-all hover:underline leading-tight block">rpt.dental@gmail.com</span>
+                            </div>
+                        </a>
+
+                        <!-- LinkedIn Link -->
+                        <a href="https://www.linkedin.com/in/ratnapriya-thakur" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-xl bg-[#FAF7F2]/60 dark:bg-slate-900 border border-[#E5DFD5] dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 transition-all group">
+                            <div class="h-8 w-8 rounded-lg theme-bg-dynamic flex items-center justify-center text-white dark:text-slate-950 shrink-0">
+                                <i class="fa-brands fa-linkedin-in text-xs"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-[8px] font-mono uppercase tracking-wider text-slate-400 font-bold leading-none mb-1">LinkedIn</p>
+                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 theme-txt-dynamic break-all hover:underline leading-tight block">ratnapriya-thakur</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+        </div>
 
     </main>
 
@@ -699,6 +757,7 @@
             goToSlideWithAnimation(prevIdx, 'prev');
         }
 
+        // Jump to slider points
         function goToSlide(index) {
             const direction = index > currentSlide ? 'next' : 'prev';
             goToSlideWithAnimation(index, direction);
