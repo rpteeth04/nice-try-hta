@@ -106,9 +106,9 @@
             <!-- LEFT: SLIDE PRESENTATION & SCIENTIFIC LITERATURE -->
             <section class="lg:col-span-7 flex flex-col justify-start gap-5 lg:h-full w-full overflow-hidden" id="left-column-container">
                 
-                <div class="flex flex-col gap-5">
+                <div class="flex flex-col gap-5 flex-grow">
                     <!-- Slide Deck Frame (Normalized height limits for perfect UI symmetry) -->
-                    <div class="relative w-full h-[480px] sm:h-[500px] md:h-[520px] lg:h-[542px] xl:h-[555px] rounded-2xl overflow-hidden bg-[#F3EFE7] dark:bg-slate-900 border border-[#E5DFD5] dark:border-slate-800/80 shadow-2xl flex flex-col justify-between p-5 sm:p-10 select-none group" id="slide-container">
+                    <div class="relative w-full min-h-[460px] sm:min-h-[420px] md:min-h-[450px] lg:min-h-[500px] flex-grow rounded-2xl overflow-hidden bg-[#F3EFE7] dark:bg-slate-900 border border-[#E5DFD5] dark:border-slate-800/80 shadow-2xl flex flex-col justify-between p-5 sm:p-10 select-none group" id="slide-container">
                         
                         <!-- Background decorative elements based on active theme -->
                         <div class="absolute inset-0 pointer-events-none opacity-10 dark:opacity-20 transition-all duration-500" id="slide-bg">
@@ -332,7 +332,7 @@
                 </div>
 
                 <!-- Embedded PDF Frame Card (With Native Mobile Viewport Helpers) -->
-                <div class="rounded-2xl border border-[#E5DFD5] dark:border-slate-800 bg-[#EFEAE0]/40 dark:bg-slate-900/20 p-4 sm:p-5 shadow-xl relative overflow-hidden transition-all duration-300 mt-5 lg:mt-0" id="pdf-viewer-card">
+                <div class="rounded-2xl border border-[#E5DFD5] dark:border-slate-800 bg-[#EFEAE0]/40 dark:bg-slate-900/20 p-4 sm:p-5 shadow-xl relative overflow-hidden transition-all duration-300 mt-5 lg:mt-auto" id="pdf-viewer-card">
                     <div class="flex items-center justify-between mb-0 gap-4">
                         <button onclick="toggleMethodology()" class="w-full flex items-center justify-between text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-300 hover:opacity-80 transition-all focus:outline-none text-left">
                             <span class="flex items-center gap-2.5">
@@ -795,18 +795,13 @@
         function toggleReferences() {
             const content = document.getElementById('references-content');
             const arrow = document.getElementById('references-arrow');
-            const column = document.getElementById('left-column-container');
 
             if (content.classList.contains('hidden')) {
                 content.classList.remove('hidden');
                 arrow.classList.add('rotate-180');
-                column.classList.remove('justify-start');
-                column.classList.add('justify-between');
             } else {
                 content.classList.add('hidden');
                 arrow.classList.remove('rotate-180');
-                column.classList.remove('justify-between');
-                column.classList.add('justify-start');
             }
         }
 
@@ -814,18 +809,13 @@
         function toggleMethodology() {
             const content = document.getElementById('pdf-frame-container');
             const arrow = document.getElementById('pdf-methodology-arrow');
-            const column = document.getElementById('right-column-container');
             
             if (content.classList.contains('hidden')) {
                 content.classList.remove('hidden');
                 arrow.classList.add('rotate-180');
-                column.classList.remove('justify-start');
-                column.classList.add('justify-between');
             } else {
                 content.classList.add('hidden');
                 arrow.classList.remove('rotate-180');
-                column.classList.remove('justify-between');
-                column.classList.add('justify-start');
             }
         }
 
