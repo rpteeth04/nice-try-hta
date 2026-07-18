@@ -41,8 +41,9 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #64748b;
         }
+        /* Custom slide exit/entry transitions for hardware-accelerated sliding */
         .slide-transition {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1);
         }
         @media print {
             .no-print { display: none !important; }
@@ -55,14 +56,14 @@
     <!-- NAVIGATION BAR -->
     <header class="no-print border-b border-slate-800/80 bg-slate-950/80 backdrop-blur sticky top-0 z-50 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-0 sm:h-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div class="flex items-start gap-3">
+            <div class="flex items-start gap-3 w-full sm:w-auto">
                 <div class="h-10 w-10 shrink-0 rounded-lg bg-purple-500 flex items-center justify-center text-slate-950 font-bold shadow-lg shadow-purple-500/20" id="header-logo-container">
                     <i class="fa-solid fa-chart-line text-sm"></i>
                 </div>
-                <div class="space-y-0.5">
+                <div class="space-y-0.5 min-w-0">
                     <h1 class="text-sm font-bold tracking-tight text-white flex flex-wrap items-center gap-1.5 leading-tight">
                         HEALTH TECHNOLOGY ASSESSMENT 
-                        <span class="text-[10px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20 font-mono inline-block mt-0.5 sm:mt-0" id="header-tag">
+                        <span class="text-[10px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20 font-mono inline-block mt-0.5 sm:mt-0 whitespace-normal text-left break-words" id="header-tag">
                             CASE STUDY by Dr. Ratnapriya Thakur (BDS, FAGE)
                         </span>
                     </h1>
@@ -87,13 +88,13 @@
     </header>
 
     <!-- MAIN INTERACTIVE CONTAINER -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 flex flex-col gap-6 sm:gap-10">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex flex-col gap-6 sm:gap-8">
         
         <!-- Two Column Interactive Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start w-full">
             
             <!-- LEFT: SLIDE PRESENTATION (7 cols) -->
-            <section class="lg:col-span-7 flex flex-col gap-4 w-full">
+            <section class="lg:col-span-7 flex flex-col gap-5 w-full overflow-hidden">
                 
                 <!-- Slide Deck Frame -->
                 <div class="relative w-full min-h-[420px] sm:min-h-[460px] md:aspect-[4/3] rounded-2xl overflow-hidden bg-slate-900 border border-slate-800/80 shadow-2xl flex flex-col justify-between p-5 sm:p-10 select-none group" id="slide-container">
@@ -113,8 +114,8 @@
                         <span id="slide-index-indicator">01 / 05</span>
                     </div>
 
-                    <!-- SLIDE MAIN CONTENT (Dynamically populated) -->
-                    <div class="relative z-10 my-auto flex flex-col justify-center py-4 sm:py-6 overflow-y-auto max-h-[80%] custom-scrollbar" id="slide-content">
+                    <!-- SLIDE MAIN CONTENT (Dynamically populated with hardware transition transformations) -->
+                    <div class="relative z-10 my-auto flex flex-col justify-center py-4 sm:py-6 overflow-y-auto max-h-[85%] custom-scrollbar slide-transition opacity-100 transform translate-x-0" id="slide-content">
                         <!-- Loaded dynamically via JavaScript -->
                     </div>
 
@@ -159,7 +160,10 @@
                                 <span class="text-[9px] text-slate-500 font-mono shrink-0">PMID: 35658024</span>
                             </div>
                             <p class="text-xs text-slate-300 leading-relaxed font-serif">
-                                Jastreboff AM, Aronne LJ, Ahmad NN, et al. <strong>Tirzepatide Once Weekly for the Treatment of Obesity</strong>. <em>N Engl J Med</em>. 2022;387(3):205-217. doi:10.1056/NEJMoa2206038
+                                <a href="https://pubmed.ncbi.nlm.nih.gov/35658024/" target="_blank" rel="noopener noreferrer" class="hover:text-purple-400 transition-colors group">
+                                    Jastreboff AM, Aronne LJ, Ahmad NN, et al. <strong>Tirzepatide Once Weekly for the Treatment of Obesity</strong>. <em>N Engl J Med</em>. 2022;387(3):205-217. doi:10.1056/NEJMoa2206038
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-1 opacity-60 group-hover:opacity-100 transition-opacity"></i>
+                                </a>
                             </p>
                         </div>
 
@@ -169,7 +173,10 @@
                                 <span class="text-[9px] text-slate-500 font-mono shrink-0">TA1026</span>
                             </div>
                             <p class="text-xs text-slate-300 leading-relaxed font-serif">
-                                National Institute for Health and Care Excellence (NICE). <strong>Tirzepatide for managing overweight and obesity</strong>. Technology Appraisal Guidance [TA1026]. Published June 2024. 
+                                <a href="https://www.nice.org.uk/guidance/ta1026" target="_blank" rel="noopener noreferrer" class="hover:text-purple-400 transition-colors group">
+                                    National Institute for Health and Care Excellence (NICE). <strong>Tirzepatide for managing overweight and obesity</strong>. Technology Appraisal Guidance [TA1026]. Published June 2024.
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-1 opacity-60 group-hover:opacity-100 transition-opacity"></i>
+                                </a>
                             </p>
                         </div>
 
@@ -179,17 +186,23 @@
                                 <span class="text-[9px] text-slate-500 font-mono shrink-0">PMID: 37385275</span>
                             </div>
                             <p class="text-xs text-slate-300 leading-relaxed font-serif">
-                                Garvey WT, Frias JP, Jastreboff AM, et al. <strong>Tirzepatide once weekly for obesity in people with type 2 diabetes (SURMOUNT-2)</strong>. <em>The Lancet</em>. 2023;402(10402):613-626.
+                                <a href="https://pubmed.ncbi.nlm.nih.gov/37385275/" target="_blank" rel="noopener noreferrer" class="hover:text-purple-400 transition-colors group">
+                                    Garvey WT, Frias JP, Jastreboff AM, et al. <strong>Tirzepatide once weekly for obesity in people with type 2 diabetes (SURMOUNT-2)</strong>. <em>The Lancet</em>. 2023;402(10402):613-626.
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-1 opacity-60 group-hover:opacity-100 transition-opacity"></i>
+                                </a>
                             </p>
                         </div>
 
                         <div class="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-2">
                             <div class="flex justify-between items-start gap-2">
                                 <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 font-mono">HTA Economics & Burden</span>
-                                <span class="text-[9px] text-slate-500 font-mono shrink-0">NHS Digital 2023</span>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">NHS Digital</span>
                             </div>
                             <p class="text-xs text-slate-300 leading-relaxed font-serif">
-                                UK Department of Health and Social Care. <strong>Tackling Obesity: Government Strategy & Resource Economics</strong>. Public Health England (PHE) cost data on diabetes & cardiovascular comorbidities.
+                                <a href="https://digital.nhs.uk/data-and-information/publications/statistical/statistics-on-obesity-physical-activity-and-diet" target="_blank" rel="noopener noreferrer" class="hover:text-purple-400 transition-colors group">
+                                    UK Department of Health and Social Care. <strong>Tackling Obesity: Government Strategy & Resource Economics</strong>. Public Health England (PHE) cost data on diabetes & cardiovascular comorbidities.
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-1 opacity-60 group-hover:opacity-100 transition-opacity"></i>
+                                </a>
                             </p>
                         </div>
                     </div>
@@ -198,7 +211,7 @@
             </section>
 
             <!-- RIGHT: INTERACTIVE HTA BUDGET SANDBOX & PDF EMBED (5 cols) -->
-            <section class="lg:col-span-5 flex flex-col gap-6 no-print w-full">
+            <section class="lg:col-span-5 flex flex-col gap-5 no-print w-full">
                 
                 <!-- HTA Sandbox Card -->
                 <div class="rounded-2xl border border-purple-500/20 bg-purple-950/5 p-4 sm:p-6 backdrop-blur shadow-xl relative overflow-hidden" id="sandbox-card">
@@ -308,21 +321,20 @@
 
                 </div>
 
-                <!-- Embedded PDF Frame Card -->
+                <!-- Embedded PDF Frame Card (COLLAPSIBLE BY DEFAULT) -->
                 <div class="rounded-2xl border border-slate-800 bg-slate-900/20 p-4 sm:p-5 shadow-xl relative overflow-hidden transition-all duration-300" id="pdf-viewer-card">
-                    <div class="flex items-center justify-between mb-3.5 gap-4">
-                        <button onclick="toggleMethodology()" class="flex items-center gap-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-300 hover:opacity-80 transition-all focus:outline-none text-left">
-                            <i class="fa-solid fa-file-pdf text-purple-400 text-sm" id="pdf-icon"></i>
-                            <span>Methodology Framework Document</span>
+                    <div class="flex items-center justify-between mb-0 gap-4">
+                        <button onclick="toggleMethodology()" class="w-full flex items-center justify-between text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-300 hover:opacity-80 transition-all focus:outline-none text-left">
+                            <span class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-file-pdf text-purple-400 text-sm" id="pdf-icon"></i>
+                                <span>Methodology Framework Document</span>
+                            </span>
                             <i class="fa-solid fa-chevron-down transition-transform duration-300 text-slate-500 text-[10px] ml-1 shrink-0" id="pdf-methodology-arrow"></i>
                         </button>
-                        <a href="hta_case_study_methodology.pdf" target="_blank" class="text-[9px] sm:text-[10px] text-purple-400 hover:opacity-80 transition-all flex items-center gap-1 font-semibold uppercase tracking-wider shrink-0">
-                            Fullscreen <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i>
-                        </a>
                     </div>
                     
                     <!-- Clean Iframe Container (Initialized as hidden by default) -->
-                    <div class="hidden w-full h-[380px] sm:h-[450px] rounded-xl overflow-hidden border border-slate-800 bg-slate-950 transition-colors duration-300" id="pdf-frame-container">
+                    <div class="hidden mt-4 w-full h-[380px] sm:h-[450px] rounded-xl overflow-hidden border border-slate-800 bg-slate-950 transition-colors duration-300" id="pdf-frame-container">
                         <iframe 
                             src="hta_case_study_methodology.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0" 
                             class="w-full h-full border-0"
@@ -346,7 +358,7 @@
                         By combining this interactive case study with my ongoing preparation for advanced credentials in Health Economics, I wanted to explore macro-level health system value beyond individual clinical outcomes. This project served as a playground for me to practice translating complex medical evidence into structured, population-level resource optimization models while experimenting with how Generative AI can accelerate visual tool creation. This is very much an evolving learning journey for me, and I warmly welcome any feedback, insights, or advice from experienced professionals in the field!
                     </p>
                     <div class="pt-4 border-t border-purple-500/10 flex flex-col sm:flex-row justify-end items-end gap-3 w-full">
-                        <span id="portfolio-note-signature" class="text-[10px] sm:text-xs font-mono tracking-wider text-purple-400 bg-purple-500/5 border border-purple-500/10 px-3 py-1.5 rounded-lg text-right max-w-full truncate transition-all duration-300">
+                        <span id="portfolio-note-signature" class="text-[10px] sm:text-xs font-mono tracking-wider text-purple-400 bg-purple-500/5 border border-purple-500/10 px-3.5 py-2.5 rounded-lg text-center sm:text-right w-full sm:w-auto whitespace-normal break-words leading-relaxed transition-all duration-300">
                             — Dr. Ratnapriya Thakur, a dentist exploring healthcare beyond clinics.
                         </span>
                     </div>
@@ -371,7 +383,8 @@
                 border: 'border-purple-500/20',
                 hudDot: 'bg-purple-400',
                 brandText: 'text-purple-400',
-                activeBtn: 'bg-purple-500 text-slate-950 font-semibold'
+                activeBtn: 'bg-purple-500 text-slate-950 font-semibold',
+                linkHover: 'hover:text-purple-400'
             },
             indigo: {
                 primary: 'text-indigo-400',
@@ -379,7 +392,8 @@
                 border: 'border-indigo-500/20',
                 hudDot: 'bg-indigo-400',
                 brandText: 'text-indigo-400',
-                activeBtn: 'bg-indigo-500 text-white font-semibold'
+                activeBtn: 'bg-indigo-500 text-white font-semibold',
+                linkHover: 'hover:text-indigo-400'
             },
             emerald: {
                 primary: 'text-emerald-400',
@@ -387,13 +401,15 @@
                 border: 'border-emerald-500/20',
                 hudDot: 'bg-emerald-400',
                 brandText: 'text-emerald-400',
-                activeBtn: 'bg-emerald-500 text-slate-950 font-semibold'
+                activeBtn: 'bg-emerald-500 text-slate-950 font-semibold',
+                linkHover: 'hover:text-emerald-400'
             }
         };
 
         let activeTheme = 'purple';
         let lightMode = false;
         let currentSlide = 0;
+        let isTransitioning = false; // Transition lock to avoid animation collisions
 
         // Custom slide database mapping user content to highly premium layouts with verified academic references
         const slides = [
@@ -482,7 +498,7 @@
             }
         ];
 
-        // Initialize deck visual controls
+        // Apply theme changes to slide frame UI
         function setTheme(themeName) {
             activeTheme = themeName;
             
@@ -496,7 +512,6 @@
                 btn.className = `theme-btn px-2 py-1 rounded transition-all ${themes[themeName].activeBtn}`;
             }
 
-            // Apply theme changes to slide frame UI
             const colorClass = themes[themeName].primary;
             const bgClass = themes[themeName].bgAccent;
             const borderClass = themes[themeName].border;
@@ -528,6 +543,16 @@
                 refIcon.className = `fa-solid fa-book-bookmark ${colorClass}`;
             }
 
+            // Update reference drawer hyperlinks to match active theme
+            const refContent = document.getElementById('references-content');
+            if (refContent) {
+                const links = refContent.querySelectorAll('a');
+                links.forEach(l => {
+                    // Reset class and apply dynamic color hover state
+                    l.className = `hover:underline transition-colors group ${colorClass}`;
+                });
+            }
+
             // Update header elements to track default selection
             const logo = document.getElementById('header-logo-container');
             const hTag = document.getElementById('header-tag');
@@ -554,9 +579,9 @@
             const noteSignature = document.getElementById('portfolio-note-signature');
             if (noteSignature) {
                 if (lightMode) {
-                    noteSignature.className = `text-[10px] sm:text-xs font-mono tracking-wider text-${themeName}-700 bg-${themeName}-500/10 border border-${themeName}-500/20 px-3 py-1.5 rounded-lg text-right max-w-full truncate transition-all duration-300`;
+                    noteSignature.className = `text-[10px] sm:text-xs font-mono tracking-wider text-${themeName}-700 bg-${themeName}-500/10 border border-${themeName}-500/20 px-3.5 py-2.5 rounded-lg text-center sm:text-right w-full sm:w-auto whitespace-normal break-words leading-relaxed transition-all duration-300`;
                 } else {
-                    noteSignature.className = `text-[10px] sm:text-xs font-mono tracking-wider text-${themeName}-400 bg-${themeName}-500/5 border border-${themeName}-500/10 px-3 py-1.5 rounded-lg text-right max-w-full truncate transition-all duration-300`;
+                    noteSignature.className = `text-[10px] sm:text-xs font-mono tracking-wider text-${themeName}-400 bg-${themeName}-500/5 border border-${themeName}-500/10 px-3.5 py-2.5 rounded-lg text-center sm:text-right w-full sm:w-auto whitespace-normal break-words leading-relaxed transition-all duration-300`;
                 }
             }
 
@@ -570,7 +595,7 @@
                 }
             }
 
-            renderCurrentSlide();
+            renderCurrentSlideContent();
             updateBudgetGraphics();
         }
 
@@ -626,8 +651,8 @@
             setTheme(activeTheme);
         }
 
-        // Render slide based on current slide state
-        function renderCurrentSlide() {
+        // Render slide content (Pure function to swap text, bypasses animation trigger)
+        function renderCurrentSlideContent() {
             const container = document.getElementById('slide-content');
             if (!container) return;
             const slide = slides[currentSlide];
@@ -658,7 +683,7 @@
 
             if (slide.type === 'title') {
                 container.innerHTML = `
-                    <div class="flex flex-col gap-3.5 slide-transition translate-y-0 opacity-100 py-2">
+                    <div class="flex flex-col gap-3.5 py-2">
                         <span class="text-[10px] font-bold font-mono tracking-widest text-slate-500 uppercase">HEALTH ECONOMICS SHIFT</span>
                         <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight ${fontHeadline} font-serif leading-tight">
                             ${slide.title}
@@ -686,7 +711,7 @@
                 });
 
                 container.innerHTML = `
-                    <div class="flex flex-col gap-4 slide-transition translate-y-0 opacity-100">
+                    <div class="flex flex-col gap-4">
                         <h2 class="text-lg sm:text-xl md:text-2xl font-extrabold tracking-tight ${fontHeadline} border-b ${fontBorder} pb-2.5 font-serif">
                             ${slide.title}
                         </h2>
@@ -698,28 +723,58 @@
             }
         }
 
-        // Navigate slide deck
+        // High-performance hardware-accelerated slide translation transition logic
+        function goToSlideWithAnimation(newIndex, direction = 'next') {
+            if (isTransitioning || newIndex === currentSlide) return;
+            isTransitioning = true;
+
+            const container = document.getElementById('slide-content');
+            if (!container) return;
+
+            // Define physical screen offset directions
+            const exitClass = direction === 'next' ? '-translate-x-12' : 'translate-x-12';
+            const entryClass = direction === 'next' ? 'translate-x-12' : '-translate-x-12';
+
+            // Phase 1: Slide Out (Move element in exit direction and fade opacity)
+            container.classList.add('opacity-0', exitClass);
+            container.classList.remove('opacity-100', 'translate-x-0');
+
+            setTimeout(() => {
+                // Phase 2: Update slide index & load content silently
+                currentSlide = newIndex;
+                renderCurrentSlideContent();
+
+                // Teleport slide container off-screen to the opposite entry side
+                container.classList.remove(exitClass);
+                container.classList.add(entryClass);
+
+                // Force layout engine reflow to apply transformations instantaneously
+                container.offsetHeight;
+
+                // Phase 3: Slide In (Transition towards center stage and restore opacity)
+                container.classList.remove(entryClass);
+                container.classList.add('opacity-100', 'translate-x-0');
+
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 350); // Matches transition duration
+            }, 350);
+        }
+
+        // Navigate slide deck sequentially with directional transitions
         function nextSlide() {
-            if (currentSlide < slides.length - 1) {
-                currentSlide++;
-            } else {
-                currentSlide = 0; // wrap around
-            }
-            renderCurrentSlide();
+            let nextIdx = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0;
+            goToSlideWithAnimation(nextIdx, 'next');
         }
 
         function prevSlide() {
-            if (currentSlide > 0) {
-                currentSlide--;
-            } else {
-                currentSlide = slides.length - 1;
-            }
-            renderCurrentSlide();
+            let prevIdx = (currentSlide > 0) ? currentSlide - 1 : slides.length - 1;
+            goToSlideWithAnimation(prevIdx, 'prev');
         }
 
         function goToSlide(index) {
-            currentSlide = index;
-            renderCurrentSlide();
+            const direction = index > currentSlide ? 'next' : 'prev';
+            goToSlideWithAnimation(index, direction);
         }
 
         // Expandable references drawer toggle logic
@@ -747,7 +802,7 @@
             }
         }
 
-        // Support swipe gestures on slide deck card for tablet/mobile viewports
+        // Support physical touch swipes on slide deck card for tablet/mobile viewports
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -762,11 +817,11 @@
         }, { passive: true });
 
         function handleSwipeGesture() {
-            if (touchStartX - touchEndX > 55) {
-                nextSlide(); // Swiped left
+            if (touchStartX - touchEndX > 50) {
+                nextSlide(); // Dragged left -> show next
             }
-            if (touchEndX - touchStartX > 55) {
-                prevSlide(); // Swiped right
+            if (touchEndX - touchStartX > 50) {
+                prevSlide(); // Dragged right -> show prev
             }
         }
 
