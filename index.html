@@ -116,7 +116,8 @@
                         </div>
 
                         <!-- SLIDE MAIN CONTENT -->
-                        <div class="relative z-10 my-auto flex flex-col justify-center py-4 sm:py-6 overflow-y-auto max-h-[85%] custom-scrollbar slide-transition opacity-100 transform translate-x-0" id="slide-content">
+                        <!-- Mobile spacing optimization: uses justify-start on mobile and md:justify-center on desktop -->
+                        <div class="relative z-10 my-auto flex flex-col justify-start md:justify-center py-2 sm:py-6 overflow-y-auto max-h-[70%] md:max-h-[80%] custom-scrollbar slide-transition opacity-100 transform translate-x-0 text-left" id="slide-content">
                             <!-- Loaded dynamically via JavaScript -->
                         </div>
 
@@ -213,7 +214,7 @@
             </section>
 
             <!-- RIGHT: INTERACTIVE HTA BUDGET SANDBOX & METHODOLOGY -->
-            <section class="lg:col-span-5 flex flex-col justify-between lg:h-full no-print w-full">
+            <section class="lg:col-span-5 flex flex-col justify-start gap-5 lg:h-full no-print w-full" id="right-column-container">
                 
                 <div class="flex flex-col gap-5">
                     <!-- HTA Sandbox Card -->
@@ -687,15 +688,15 @@
 
             if (slide.type === 'title') {
                 container.innerHTML = `
-                    <div class="flex flex-col gap-3.5 py-2">
-                        <span class="text-[10px] font-bold font-mono tracking-widest text-slate-500 uppercase">HEALTH ECONOMICS SHIFT</span>
-                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight ${fontHeadline} font-serif leading-tight">
+                    <div class="flex flex-col gap-3 py-1">
+                        <span class="text-[9px] sm:text-[10px] font-bold font-mono tracking-widest text-slate-500 uppercase">HEALTH ECONOMICS SHIFT</span>
+                        <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight ${fontHeadline} font-serif leading-tight">
                             ${slide.title}
                         </h2>
-                        <h3 class="text-base sm:text-lg md:text-xl font-medium ${colorClass} italic font-serif">
+                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl font-medium ${colorClass} italic font-serif">
                             ${slide.subtitle}
                         </h3>
-                        <p class="text-xs sm:text-sm ${fontSub} max-w-xl leading-relaxed mt-1">
+                        <p class="text-[11px] sm:text-xs md:text-sm ${fontSub} max-w-xl leading-relaxed mt-1">
                             ${slide.desc}
                         </p>
                     </div>
@@ -706,7 +707,7 @@
                     const parsedText = sec.text.replace('<strong class="text-theme-clr">', `<strong class="font-bold ${colorClass}">`);
                     sectionsHtml += `
                         <div class="flex flex-col gap-1">
-                            <span class="text-[9px] sm:text-[10px] font-bold font-mono tracking-wider ${colorClass} uppercase">${sec.label}</span>
+                            <span class="text-[9px] sm:text-[10px] font-bold font-mono tracking-wider ${colorClass} uppercase leading-none">${sec.label}</span>
                             <p class="text-[11px] sm:text-xs md:text-sm ${fontSub} leading-relaxed">
                                 ${parsedText}
                             </p>
@@ -714,12 +715,13 @@
                     `;
                 });
 
+                // Uses tighter margins on mobile to ensure perfect visibility without any layout clipping
                 container.innerHTML = `
-                    <div class="flex flex-col gap-4">
-                        <h2 class="text-lg sm:text-xl md:text-2xl font-extrabold tracking-tight ${fontHeadline} border-b ${fontBorder} pb-2.5 font-serif">
+                    <div class="flex flex-col gap-3 md:gap-4">
+                        <h2 class="text-base sm:text-lg md:text-xl lg:text-2xl font-extrabold tracking-tight ${fontHeadline} border-b ${fontBorder} pb-2 font-serif">
                             ${slide.title}
                         </h2>
-                        <div class="grid grid-cols-1 gap-4">
+                        <div class="grid grid-cols-1 gap-2.5 md:gap-4">
                             ${sectionsHtml}
                         </div>
                     </div>
@@ -756,7 +758,7 @@
                 container.offsetHeight;
 
                 // Phase 3: Slide In (Transition towards center stage and restore opacity)
-                container.classList.remove(entryClass);
+                container.classList.remove(entryClass, 'opacity-0'); // Safely cleans opacity-0 so mobile devices never hide texts!
                 container.classList.add('opacity-100', 'translate-x-0');
 
                 setTimeout(() => {
@@ -794,15 +796,24 @@
             }
         }
 
+        // Toggles collapsible states for the right column Methodology card
         function toggleMethodology() {
             const content = document.getElementById('pdf-frame-container');
             const arrow = document.getElementById('pdf-methodology-arrow');
+            const column = document.getElementById('right-column-container');
+            
             if (content.classList.contains('hidden')) {
                 content.classList.remove('hidden');
                 arrow.classList.add('rotate-180');
+                // When open, stretch columns on desktop to line up bottom margins
+                column.classList.remove('justify-start');
+                column.classList.add('justify-between');
             } else {
                 content.classList.add('hidden');
                 arrow.classList.remove('rotate-180');
+                // When collapsed, pull card up directly underneath the calculator card
+                column.classList.remove('justify-between');
+                column.classList.add('justify-start');
             }
         }
 
